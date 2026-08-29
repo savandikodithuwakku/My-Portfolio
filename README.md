@@ -13,12 +13,17 @@ Static site. No build step, no dependencies.
 then open http://localhost:5173
 
 ## Contact form
-By default the form validates input and opens the visitor's mail app with
-the message pre-filled (one click to send).
+Messages are delivered by [Web3Forms](https://web3forms.com) — no backend,
+no account. Get a free access key (enter your email on their site, the key
+arrives by mail) and paste it into `WEB3FORMS_KEY` near the top of
+`js/main.js`:
 
-To receive messages directly in your inbox, create a free endpoint at
-formspree.io or web3forms.com and paste the URL into `FORM_ENDPOINT`
-near the top of `js/main.js`.
+    var WEB3FORMS_KEY = 'your-key-here';
+
+With a key set, submitting the form emails you directly and the visitor sees
+a confirmation. If the key is empty, or the request fails, the form falls
+back to opening the visitor's mail app with the message pre-filled.
+A hidden `botcheck` honeypot field filters basic spam bots.
 
 ## Deploy
 Drop the folder on Vercel, Netlify or GitHub Pages. It is fully static.

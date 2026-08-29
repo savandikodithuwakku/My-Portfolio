@@ -510,3 +510,6 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
 
 /* ripple hosts need to clip the circle and own their stacking context */
 .copy,.contact__social a,.hero__social a{position:relative;overflow:hidden;isolation:isolate}
+
+/* honeypot: hidden from humans, tempting to bots */
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0;pointer-events:none}

@@ -4,13 +4,15 @@
 
   var EMAIL = 'savandikodithuwakku@gmail.com';
 
-  /* ---- Optional hosted form endpoint -------------------------------
-     Empty = the form opens the visitor's mail app with the message
-     pre-filled. To receive messages in your inbox instead, create a free
-     endpoint at https://formspree.io or https://web3forms.com and paste
-     the URL here, e.g. 'https://formspree.io/f/xxxxxxx'.
-  ------------------------------------------------------------------- */
-  var FORM_ENDPOINT = '';
+  /* ---- Email delivery -----------------------------------------------
+     Messages are sent straight to the inbox above through Web3Forms.
+     Get a free access key in ~30 seconds: go to https://web3forms.com,
+     type this email address, and the key arrives by mail. Paste it below.
+     Leave it empty and the form falls back to opening the visitor's
+     mail app with the message pre-filled.
+  --------------------------------------------------------------------- */
+  var WEB3FORMS_KEY = '';
+  var FORM_ENDPOINT = 'https://api.web3forms.com/submit';
 
   /* ---------- mobile menu ---------- */
   var burger = document.getElementById('burger');
@@ -110,7 +112,10 @@
 
   var status = document.getElementById('cf-status');
   var sendBtn = document.getElementById('cf-send');
-  var defaultNote = status ? status.textContent : '';
+  var defaultNote = WEB3FORMS_KEY
+    ? 'Goes straight to my inbox. I usually reply within a day.'
+    : (status ? status.textContent : '');
+  if (status && WEB3FORMS_KEY) status.textContent = defaultNote;
 
   var rules = {
     name: function (v) { return v.length >= 2 ? '' : 'Please enter your name.'; },
@@ -166,20 +171,32 @@
     var data = {};
     inputs.forEach(function (i) { data[i.name] = i.value.trim(); });
 
-    if (FORM_ENDPOINT) {
+    if (form.querySelector('[name="botcheck"]') && form.querySelector('[name="botcheck"]').checked) return;
+
+    if (WEB3FORMS_KEY) {
       sendBtn.disabled = true;
       setNote('Sending…');
       fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: data.subject,
+          from_name: data.name,
+          replyto: data.email,
+          name: data.name,
+          email: data.email,
+          message: data.message
+        })
       }).then(function (res) {
-        if (!res.ok) throw new Error('failed');
-        form.reset();
-        setNote('Message sent, thank you. I’ll reply within a day.', 'is-ok');
+        return res.json().then(function (body) {
+          if (!res.ok || !body.success) throw new Error(body.message || 'failed');
+          form.reset();
+          setNote('Message sent, thank you. I’ll reply within a day.', 'is-ok');
+        });
       }).catch(function () {
         openMailClient(data);
-        setNote('Opening your mail app instead. Press send there.', 'is-ok');
+        setNote('Could not send from here — opening your mail app instead. Press send there.', 'is-bad');
       }).then(function () { sendBtn.disabled = false; });
       return;
     }
