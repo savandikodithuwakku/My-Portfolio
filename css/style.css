@@ -18,6 +18,8 @@
   --accent:#4C8DF6;
   --accent-2:#84B4FA;
   --accent-soft:rgba(76,141,246,.12);
+  --accent-3:#A78BFA;   /* violet, second stop of every animated gradient */
+  --accent-4:#7C6BF5;   /* indigo, midpoint on the primary button        */
   --ok:#3DD68C;
   --bad:#F2707A;
 
@@ -369,11 +371,13 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
 
 /* ---- gradient text that drifts through the accent range ---- */
 .gradtext{
-  background:linear-gradient(100deg,var(--text) 0%,var(--accent-2) 26%,var(--accent) 46%,#A78BFA 62%,var(--text) 86%);
-  background-size:280% 100%;
+  background:linear-gradient(100deg,
+    var(--text) 0%,var(--accent-2) 18%,var(--accent) 32%,
+    var(--accent-4) 44%,var(--accent-3) 56%,var(--accent) 70%,var(--text) 92%);
+  background-size:320% 100%;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
-  animation:gradslide 9s var(--ease) infinite;
+  animation:gradslide 6.5s linear infinite;
 }
 @keyframes gradslide{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
@@ -383,7 +387,7 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
 /* ---- typewriter role rotator ---- */
 .type{display:inline-flex;align-items:baseline;min-height:1.2em}
 .type__txt{
-  background:linear-gradient(90deg,var(--accent-2),var(--accent) 55%,#A78BFA);
+  background:linear-gradient(90deg,var(--accent-2),var(--accent) 55%,var(--accent-3));
   background-size:200% 100%;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
@@ -429,7 +433,7 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
 .stats>div:hover{transform:translateY(-4px);border-color:rgba(76,141,246,.4);background:var(--card-2)}
 .stats>div::before{
   content:"";position:absolute;left:0;right:0;top:0;height:2px;
-  background:linear-gradient(90deg,var(--accent),#A78BFA,var(--ok),var(--accent));
+  background:linear-gradient(90deg,var(--accent),var(--accent-3),var(--ok),var(--accent));
   background-size:300% 100%;transform:scaleX(0);transform-origin:left;
   transition:transform .35s var(--ease);animation:gradslide 4s linear infinite;
 }
@@ -447,12 +451,12 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
 
 /* the primary button animates its own gradient */
 .btn--primary{
-  background:linear-gradient(100deg,var(--accent),#7C6BF5 38%,#A78BFA 55%,var(--accent-2) 78%,var(--accent));
+  background:linear-gradient(100deg,var(--accent),var(--accent-4) 38%,var(--accent-3) 55%,var(--accent-2) 78%,var(--accent));
   background-size:280% 100%;animation:gradslide 7s linear infinite;
   border-color:transparent;
 }
 .btn--primary:hover{
-  background:linear-gradient(100deg,var(--accent),#7C6BF5 38%,#A78BFA 55%,var(--accent-2) 78%,var(--accent));
+  background:linear-gradient(100deg,var(--accent),var(--accent-4) 38%,var(--accent-3) 55%,var(--accent-2) 78%,var(--accent));
   background-size:280% 100%;border-color:transparent;
   box-shadow:0 12px 32px rgba(124,107,245,.38);
 }
@@ -470,14 +474,14 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
 .nav__links a{position:relative}
 .nav__links a::after{
   content:"";position:absolute;left:14px;right:14px;bottom:4px;height:2px;border-radius:2px;
-  background:linear-gradient(90deg,var(--accent),#A78BFA);
+  background:linear-gradient(90deg,var(--accent),var(--accent-3));
   transform:scaleX(0);transition:transform .28s var(--ease);
 }
 .nav__links a:hover::after,.nav__links a.is-active::after{transform:scaleX(1)}
 
 /* ---- logo dot pulses through the palette ---- */
 .logo span{animation:dotcycle 4.5s linear infinite}
-@keyframes dotcycle{0%{color:var(--accent)}33%{color:#A78BFA}66%{color:var(--ok)}100%{color:var(--accent)}}
+@keyframes dotcycle{0%{color:var(--accent)}33%{color:var(--accent-3)}66%{color:var(--ok)}100%{color:var(--accent)}}
 
 /* ---- social + pill hover lift ---- */
 .hero__social a::after{
@@ -495,7 +499,7 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
 .link,.proj__links a{position:relative}
 .link::after,.proj__links a::after{
   content:"";position:absolute;left:0;right:0;bottom:-2px;height:1.5px;
-  background:linear-gradient(90deg,var(--accent),#A78BFA);
+  background:linear-gradient(90deg,var(--accent),var(--accent-3));
   transform:scaleX(0);transform-origin:right;transition:transform .3s var(--ease);
 }
 .link:hover::after,.proj__links a:hover::after{transform:scaleX(1);transform-origin:left}

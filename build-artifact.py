@@ -23,7 +23,7 @@ body = re.sub(
     body, flags=re.S)
 body = body.replace('href="assets/Savandi_Kodithuwakku_CV.pdf" download', 'href="' + PROFILE + '" target="_blank" rel="noopener"')
 body = body.replace('href="assets/Savandi_Kodithuwakku_CV.pdf"', 'href="' + PROFILE + '"')
-body = body.replace('<script src="js/main.js"></script>', "")
+body = re.sub(r'<script src="js/main\.js[^"]*"></script>', "", body)
 
 # sandboxed frames block top-level navigation; open the mail client in a tab
 js = js.replace("window.location.href = url;", "window.open(url, '_blank');")
