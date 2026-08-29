@@ -11,7 +11,7 @@
      Leave it empty and the form falls back to opening the visitor's
      mail app with the message pre-filled.
   --------------------------------------------------------------------- */
-  var WEB3FORMS_KEY = '';
+  var WEB3FORMS_KEY = '9d1a7973-670e-4b4c-a063-eb368128f41a';
   var FORM_ENDPOINT = 'https://api.web3forms.com/submit';
 
   /* ---------- mobile menu ---------- */
