@@ -200,8 +200,10 @@
   var roleEl = document.getElementById('type-txt');
   var ROLES = [
     'Software Engineering Undergraduate',
-    'Full-Stack Developer',
+    'Full Stack Developer',
     'AI & LLM Enthusiast',
+    'Technical Content Writer',
+    'Problem Solver',
     'React · Node · Django',
     'Open to Internships'
   ];
