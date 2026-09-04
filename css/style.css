@@ -137,9 +137,28 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
 .hero__social a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);transform:translateY(-2px)}
 
 .hero__photo{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
+
+/* backdrop that fills the column around the portrait: a faint dot grid faded
+   into a circle, plus two rings the photo sits inside */
+.decor{position:absolute;inset:0;pointer-events:none;display:grid;place-items:center;z-index:0}
+.decor__grid{
+  position:absolute;width:min(560px,100%);aspect-ratio:1;
+  background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(closest-side,#000 35%,transparent 72%);
+  mask-image:radial-gradient(closest-side,#000 35%,transparent 72%);
+  opacity:.55;
+}
+.decor__ring{
+  position:absolute;border-radius:50%;border:1px solid var(--border);
+  aspect-ratio:1;
+}
+.decor__ring--1{width:min(400px,84%);border-color:rgba(76,141,246,.18)}
+.decor__ring--2{width:min(520px,104%);border-style:dashed;border-color:rgba(255,255,255,.06);animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 /* width is capped by viewport height too, so the portrait stays the same visual
    height as the intro column instead of overflowing it on short screens */
-.photo{position:relative;width:100%;max-width:min(360px,34vh);transform:translateY(-28px)}
+.photo{position:relative;z-index:1;width:100%;max-width:min(360px,34vh);transform:translateY(-28px)}
 .photo__glow{
   position:absolute;left:50%;top:4%;transform:translateX(-50%);
   width:100%;aspect-ratio:1/1.25;border-radius:50%;
@@ -159,6 +178,13 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
   padding:11px 16px;border-radius:12px;background:var(--card);border:1px solid var(--border-2);
   font-size:14.5px;font-weight:600;color:var(--text);box-shadow:0 14px 30px rgba(0,0,0,.4);
 }
+.badge{z-index:2;animation:float 6s ease-in-out infinite}
+.badge--tech{bottom:auto;left:auto;top:8%;right:0;animation-delay:-3s}
+.badge--tech svg{width:17px;height:17px;fill:var(--accent)}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -7px}}
+@media(prefers-reduced-motion:reduce){
+  .badge,.decor__ring--2{animation:none}
+}
 .badge__dot{width:9px;height:9px;border-radius:50%;background:var(--ok);animation:pulse 2.4s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,214,140,.5)}70%{box-shadow:0 0 0 9px rgba(61,214,140,0)}100%{box-shadow:0 0 0 0 rgba(61,214,140,0)}}
 @media(max-width:920px){
@@ -168,6 +194,10 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
   .hero__photo{order:-1}
   .photo{max-width:290px;transform:none}
   .badge{left:50%;transform:translateX(-50%);bottom:2%}
+  .badge--tech{top:2%;right:auto}
+  .decor__grid{width:min(380px,100%)}
+  .decor__ring--1{width:min(300px,78%)}
+  .decor__ring--2{width:min(380px,96%)}
 }
 
 /* ---------------- stats ---------------- */
