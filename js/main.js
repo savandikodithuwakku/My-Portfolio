@@ -216,10 +216,11 @@
   /* ---------- typewriter role rotator ---------- */
   var roleEl = document.getElementById('type-txt');
   var ROLES = [
-    'Software Engineering Undergraduate',
+    'Software Engineer',
     'Full Stack Developer',
     'AI & LLM Enthusiast',
     'Technical Content Writer',
+    'Content Creator',
     'Problem Solver',
     'React · Node · Django',
     'Open to Internships'
