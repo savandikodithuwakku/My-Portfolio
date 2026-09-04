@@ -196,7 +196,7 @@
         });
       }).catch(function () {
         openMailClient(data);
-        setNote('Could not send from here — opening your mail app instead. Press send there.', 'is-bad');
+        setNote('Could not send from here - opening your mail app instead. Press send there.', 'is-bad');
       }).then(function () { sendBtn.disabled = false; });
       return;
     }

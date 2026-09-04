@@ -13,7 +13,7 @@ Static site. No build step, no dependencies.
 then open http://localhost:5173
 
 ## Contact form
-Messages are delivered by [Web3Forms](https://web3forms.com) — no backend,
+Messages are delivered by [Web3Forms](https://web3forms.com) - no backend,
 no account. Get a free access key (enter your email on their site, the key
 arrives by mail) and paste it into `WEB3FORMS_KEY` near the top of
 `js/main.js`:
