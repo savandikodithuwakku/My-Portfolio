@@ -441,7 +441,10 @@ h1,h2,h3{margin:0;font-family:var(--display);color:var(--text);line-height:1.2;l
 .hero__name.gradtext{padding-bottom:.06em}
 
 /* ---- typewriter role rotator ---- */
-.type{display:inline-flex;align-items:baseline;min-height:1.2em}
+/* the ghost copy holds the widest role so the block never resizes while typing */
+.type{position:relative;display:inline-block;min-height:1.2em}
+.type__ghost{visibility:hidden;padding-right:5px}
+.type__live{position:absolute;left:0;top:0;width:100%;display:inline-flex;align-items:baseline}
 .type__txt{
   background:linear-gradient(90deg,var(--accent-2),var(--accent) 55%,var(--accent-3));
   background-size:200% 100%;
