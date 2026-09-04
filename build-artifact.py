@@ -14,6 +14,14 @@ fonts = re.search(r'<link href="https://fonts\.googleapis[^>]+>', html).group(0)
 
 body = body.replace('src="assets/savandi.png"', f'src="data:image/png;base64,{img}"')
 
+# inline any achievement photos that exist; drop the tag for ones not added yet
+for f in sorted((root / "assets" / "achievements").glob("*")):
+    if f.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp"):
+        mime = "jpeg" if f.suffix.lower() in (".jpg", ".jpeg") else f.suffix.lstrip(".").lower()
+        data = base64.b64encode(f.read_bytes()).decode()
+        body = body.replace(f'src="assets/achievements/{f.name}"',
+                            f'src="data:image/{mime};base64,{data}"')
+
 # the CV file is not bundled into the preview - point at the profile instead
 PROFILE = "https://www.linkedin.com/in/savandi-kodithuwakku/"
 body = re.sub(
